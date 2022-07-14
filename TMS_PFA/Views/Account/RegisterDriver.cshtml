@@ -1,0 +1,112 @@
+﻿@model TMS_PFA.ViewModels.DriverViewModel
+
+@{
+    ViewData["Title"] = "RegisterDriver";
+}
+
+<h1>RegisterDriver</h1>
+
+<h4>DriverViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RegisterDriver">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nid" class="control-label"></label>
+                <input asp-for="Nid" class="form-control" />
+                <span asp-validation-for="Nid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birth" class="control-label"></label>
+                <input asp-for="Birth" class="form-control" type="date" value="1900-01-01" min="1900-01-01" />
+                <span asp-validation-for="Birth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sexe" class="control-label"></label>
+                <select asp-for="Sexe" class="form-control">
+                    <option value="Man" selected>Masculin</option>
+                    <option value="Woman">Feminin</option>
+                </select>
+                <span asp-validation-for="Sexe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HiringDate" class="control-label"></label>
+                <input asp-for="HiringDate" class="form-control" type="date" value="1900-01-01" min="1900-01-01" />
+                <span asp-validation-for="HiringDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" type="number" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicenseId" class="control-label"></label>
+                <input asp-for="LicenseId" class="form-control" />
+                <span asp-validation-for="LicenseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicenseType" class="control-label"></label>
+                <select asp-for="LicenseType" class="form-control">
+                    <option value="A" selected>A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+                <span asp-validation-for="LicenseType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" hidden>
+            <label asp-for="Role" class="control-label"></label>
+            <input asp-for="Role" class="form-control" />
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Confirmation" class="control-label"></label>
+                <input asp-for="Confirmation" class="form-control" />
+                <span asp-validation-for="Confirmation" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="AccountId" class="control-label"></label>
+                <input asp-for="AccountId" class="form-control" />
+                <span asp-validation-for="AccountId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

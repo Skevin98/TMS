@@ -1,0 +1,80 @@
+﻿@model TMS_PFA.ViewModels.EditDeliveryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>EditDeliveryViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="InProgress">In Progress</option>
+                    <option value="Canceled">Canceled</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Loading">Loading</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Details" class="control-label"></label>
+                <input asp-for="Details" class="form-control" />
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedReceiptDate" class="control-label"></label>
+                <input asp-for="EstimatedReceiptDate" class="form-control" />
+                <span asp-validation-for="EstimatedReceiptDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Progression" class="control-label"></label>
+                <input asp-for="Progression" class="form-control" />
+                <span asp-validation-for="Progression" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseId" class="control-label"></label>
+                <input asp-for="PurchaseId" class="form-control" />
+                <span asp-validation-for="PurchaseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedVehicle" class="control-label"></label>
+                <select asp-for="SelectedVehicle" asp-items="Model.Vehicles" class="form-control">
+
+                </select>
+                <span asp-validation-for="SelectedVehicle" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedDriver" class="control-label"></label>
+                <select asp-for="SelectedDriver" asp-items="Model.Drivers" class="form-control" >
+
+                </select>
+                <span asp-validation-for="SelectedDriver" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
+
+@{
+    ViewData["Title"] = "Espace Profil";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.IsInRole("Manager"))
+    {
+        <h1>Espace Administrateur</h1>
+        <div>
+            <a asp-controller="Driver" asp-action="Index">Gestion des chauffeurs</a>
+        </div>
+        <div>
+            <a asp-controller="Client" asp-action="Index">Gestion des clients</a>
+        </div>
+        <div>
+            <a asp-controller="Vehicle" asp-action="Index">Gestion des véhicules</a>
+        </div>
+        <div>
+            <a asp-controller="PurchaseOrder" asp-action="Index">Gestion des commandes</a>
+        </div>
+        <div>
+            <a asp-controller="Delivery" asp-action="Index">Gestion des livraisons</a>
+        </div>
+        <div>
+            <a asp-controller="DeliveryForm" asp-action="Index">Gestions des bons de livraison</a>
+        </div>
+        <div>
+            <a asp-controller="Receipt" asp-action="Index">Gestion des bons de réception</a>
+        </div>
+    }
+    else if (User.IsInRole("Client"))
+    {
+        <div>
+            <a asp-controller="PurchaseOrder" asp-action="Index">Gestion des commandes</a>
+        </div>
+        <div>
+            <a asp-controller="Delivery" asp-action="Index">Gestion des livraisons</a>
+        </div>
+    }
+    else if (User.IsInRole("Driver"))
+    {
+        <div>
+            <a asp-controller="Delivery" asp-action="Index">Gestion des livraisons</a>
+
+        </div>
+        <div>
+            <a asp-controller="DeliveryForm" asp-action="Index">Gestions des bons de livraison</a>
+        </div>
+    }
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<TMS_PFA.ViewModels.DeliveryViewModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Account> SignInManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" id="deliveryDatatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedReceiptDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Progression)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryFormId)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedReceiptDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Progression)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryFormId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    if (User.IsInRole("Manager") || User.IsInRole("Driver"))
+                    {
+                        <a asp-controller="DeliveryForm" asp-action="Create" asp-route-id="@item.Id">| Delivery Form creation</a>
+                        <a asp-controller="DeliveryForm" asp-action="Details" asp-route-id="@item.DeliveryFormId">| Delivery Form details</a>
+                    }
+                }
+
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/DeliveryDatatable.js"></script>
+}

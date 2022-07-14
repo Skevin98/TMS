@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMS_PFA", "TMS_PFA\TMS_PFA.csproj", "{2AEA58E8-7093-40C1-AC7A-0E21969B706E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AEA58E8-7093-40C1-AC7A-0E21969B706E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AEA58E8-7093-40C1-AC7A-0E21969B706E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AEA58E8-7093-40C1-AC7A-0E21969B706E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AEA58E8-7093-40C1-AC7A-0E21969B706E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25829485-EE18-4468-98AD-0A7E34A70403}
+	EndGlobalSection
+EndGlobal
