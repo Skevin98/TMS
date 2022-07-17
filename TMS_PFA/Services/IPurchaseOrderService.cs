@@ -12,6 +12,8 @@ namespace TMS_PFA.Services
 
         IList<PurchaseOrderViewModel> GetOrderByClient(Guid CId);
 
+        IList<PurchaseOrderViewModel> GetOrderByDriver(Guid DId);
+
         PurchaseOrderViewModel GetOrderById(Guid id);
         //EditPurchaseOrderViewModel GetEditPurchaseOrder(Guid? id);
 

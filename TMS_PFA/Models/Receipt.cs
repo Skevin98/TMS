@@ -17,6 +17,8 @@ namespace TMS_PFA.Models
         public double Quantity { get; set; }
         public string Details { get; set; }
 
+        public string ImageName { get; set; }
+
         [ForeignKey("PurchaseOrder")]
 
         public Guid PurchaseId { get; set; }

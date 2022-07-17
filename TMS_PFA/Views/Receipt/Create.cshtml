@@ -1,16 +1,16 @@
 ﻿@model TMS_PFA.ViewModels.ReceiptViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Créer un bon de réception";
 }
 
-<h1>Create</h1>
+<h1>Créer un bon de réception</h1>
 
-<h4>ReceiptViewModel</h4>
+<h4>Veuillez entrer les informations ci-dessous:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <input asp-for="Date" type="date" min="2000-01-01" value="2000-01-01" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,15 +57,22 @@
                 <input asp-for="PurchaseId" class="form-control" />
                 <span asp-validation-for="PurchaseId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" accept="image/*"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Valider" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {

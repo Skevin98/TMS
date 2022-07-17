@@ -12,9 +12,11 @@ namespace TMS_PFA.ViewModels
         [Key]
         public string Id { get; set; }
         [Required]
+        [Display(Name = "Nom d'utilisateur")]
         public string UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Mot de passe")]
         public string Password { get; set; }
     }
 }

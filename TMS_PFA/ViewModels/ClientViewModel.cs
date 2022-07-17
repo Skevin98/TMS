@@ -14,6 +14,7 @@ namespace TMS_PFA.ViewModels
         [UIHint("Entrer le type de client : (Particulier,Société)")]
         public string Type { get; set; }
 
+        [Display(Name = "Adresse")]
         public string Address { get; set; }
 
 

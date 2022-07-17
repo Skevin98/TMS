@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TMS_PFA.Services;
@@ -13,12 +15,12 @@ namespace TMS_PFA.Controllers
     public class ReceiptController : Controller
     {
         private readonly IReceiptService receiptService;
+        private readonly IWebHostEnvironment hostEnvironment;
 
-        public ReceiptController(IReceiptService receiptService)
+        public ReceiptController(IReceiptService receiptService, IWebHostEnvironment hostEnvironment)
         {
             this.receiptService = receiptService;
-            
-
+            this.hostEnvironment = hostEnvironment;
         }
         // GET: ReceiptController
         public ActionResult Index()
@@ -27,13 +29,22 @@ namespace TMS_PFA.Controllers
         }
 
         // GET: ReceiptController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details([FromRoute]Guid id)
         {
+            if (id != null)
+            {
+                ReceiptViewModel viewModel = receiptService.GetReceiptById((Guid)id);
+                if (viewModel != null)
+                {
+                    return View(viewModel);
+                }
+
+            }
             return View();
         }
 
         // GET: ReceiptController/Create
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Driver")]
         //[HttpGet("{id}", Name = "Create")]
         public ActionResult Create([FromRoute] Guid? id)
         {
@@ -50,15 +61,26 @@ namespace TMS_PFA.Controllers
         }
 
         // POST: ReceiptController/Create
-        [Authorize(Roles ="Manager")]
+        [Authorize(Roles ="Manager, Driver")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] ReceiptViewModel receipt)
+        public async Task<ActionResult> Create([FromForm] ReceiptViewModel receipt)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    string wwwRootPath = hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(receipt.ImageFile.FileName);
+                    string extension = Path.GetExtension(receipt.ImageFile.FileName);
+                    receipt.ImageName = fileName = fileName + DateTime.Now.ToString("yyyymmdd") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Images/Receipts/", fileName);
+                    using (var fileStream = new FileStream(path,FileMode.Create))
+                    {
+                        await receipt.ImageFile.CopyToAsync(fileStream);
+                    }
+
+
                     receiptService.AddReceipt(receipt);
                 }
                 return RedirectToAction(nameof(Index));

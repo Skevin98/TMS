@@ -17,13 +17,15 @@ namespace TMS_PFA.Controllers
     {
         private readonly IPurchaseOrderService orderService;
         private readonly IUserRepository<Client> clientRepo;
+        private readonly IUserRepository<Driver> driverRepo;
         private readonly UserManager<Account> userManager;
 
-        public PurchaseOrderController(IPurchaseOrderService orderService, IUserRepository<Client> clientRepo, UserManager<Account> userManager)
+        public PurchaseOrderController(IPurchaseOrderService orderService, IUserRepository<Client> clientRepo, IUserRepository<Driver> driverRepo, UserManager<Account> userManager)
         {
             this.userManager = userManager;
             this.orderService = orderService;
             this.clientRepo = clientRepo;
+            this.driverRepo = driverRepo;
         }
         // GET: OrderController
         public ActionResult Index()
@@ -41,6 +43,21 @@ namespace TMS_PFA.Controllers
                 else
                 {
                     return View(orderService.GetOrderByClient(CId));
+                }
+            }
+            else if (User.IsInRole("Driver"))
+            {
+                string accountId = userManager.GetUserId(User);
+                //Console.WriteLine("XXX : "+accountId);
+                var DId = driverRepo.GetByAccoundId(accountId).Result.Id;
+                if (DId == null)
+                {
+                    //Console.WriteLine("XXX");
+                    return View();
+                }
+                else
+                {
+                    return View(orderService.GetOrderByDriver(DId));
                 }
             }
             return View(orderService.GetAllOrder());
@@ -72,7 +89,7 @@ namespace TMS_PFA.Controllers
                 else
                 {
                     //Console.WriteLine("°°°°° : " + CId);
-                    return View("Create", new PurchaseOrderViewModel { ClienId = CId });
+                    return View("Create", new PurchaseOrderViewModel { ClientId = CId });
                 }
                 
 

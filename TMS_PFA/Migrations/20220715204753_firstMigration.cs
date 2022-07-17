@@ -51,6 +51,7 @@ namespace TMS_PFA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NumberPlate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Weight = table.Column<double>(type: "float", nullable: false),
                     Height = table.Column<double>(type: "float", nullable: false),
@@ -113,8 +114,8 @@ namespace TMS_PFA.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -158,8 +159,8 @@ namespace TMS_PFA.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -234,16 +235,17 @@ namespace TMS_PFA.Migrations
                     Height = table.Column<double>(type: "float", nullable: false),
                     Width = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: false),
+                    Starting = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClienId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PurchaseOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PurchaseOrders_Clients_ClienId",
-                        column: x => x.ClienId,
+                        name: "FK_PurchaseOrders_Clients_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -297,6 +299,7 @@ namespace TMS_PFA.Migrations
                     Width = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PurchaseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -317,8 +320,8 @@ namespace TMS_PFA.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReceiptDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DestinationAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    DeliveryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DeliveryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -334,17 +337,17 @@ namespace TMS_PFA.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "12dbb6a3-8446-493c-8f7a-8ca1be32a7d7", "d3fd466e-3719-45df-9213-16725d6c206a", "Manager", "MANAGER" });
+                values: new object[] { "26f16166-6e70-473e-ae17-51631a623a6c", "fbb207e8-9da9-4137-ae2c-0207defedf25", "Manager", "MANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "eb72bbff-c1d9-405d-91d0-5d2289f77750", "714d5891-9cef-4376-838d-25a7a63cd8d9", "Driver", "DRIVER" });
+                values: new object[] { "2fb58b4b-4db1-469e-a437-46ef78c4910a", "75c38886-f757-4a50-a15a-4214ca562d05", "Driver", "DRIVER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7cd87a77-99d1-4f0d-aa56-e2471acb0b68", "7d7ff752-7693-41ca-a830-0fe94e530adc", "Client", "CLIENT" });
+                values: new object[] { "5b9a2de1-b071-4725-b566-d48cee54aee1", "159f5ec6-13cd-4fa8-89db-82cc4458ee72", "Client", "CLIENT" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -417,9 +420,9 @@ namespace TMS_PFA.Migrations
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseOrders_ClienId",
+                name: "IX_PurchaseOrders_ClientId",
                 table: "PurchaseOrders",
-                column: "ClienId");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receipts_PurchaseId",

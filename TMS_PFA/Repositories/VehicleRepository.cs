@@ -29,7 +29,7 @@ namespace TMS_PFA.Repositories
                         new SelectListItem
                         {
                             Value = v.Id.ToString(),
-                            Text = v.Id.ToString()
+                            Text = v.NumberPlate.ToString()
                         }).ToList();
 
             return new SelectList(vehicles, "Value", "Text");

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<TMS_PFA.ViewModels.ReceiptViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bons de réception";
 }
 
-<h1>Index</h1>
+<h1>Bons de réception</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Créer un bon de réception</a>
 </p>
 <table class="table">
     <thead>
@@ -32,6 +32,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PurchaseId)
@@ -64,14 +67,20 @@
                 @Html.DisplayFor(modelItem => item.Details)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PurchaseId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> @*|
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a asp-controller="Account" asp-action="Index">Retour</a>
+</div>

@@ -12,15 +12,18 @@ namespace TMS_PFA.Services
     {
         private readonly IRepository<Delivery> repository;
 
-        public readonly IUserRepository<Driver> driverRepo;
 
-        private readonly IVehicleRepository vehicleRepo;
+        private readonly IVehicleService vehicleService;
 
-        public DeliveryService(IRepository<Delivery> repository, IUserRepository<Driver> driverRepo, IVehicleRepository vehicleRepo)
+        private readonly IDriverService driverService;
+
+        public DeliveryService(IRepository<Delivery> repository, IVehicleService vehicleService, IDriverService driverService)
         {
             this.repository = repository;
-            this.driverRepo = driverRepo;
-            this.vehicleRepo = vehicleRepo;
+
+            this.vehicleService = vehicleService;
+
+            this.driverService = driverService;
         }
         public void AddDelivery(EditDeliveryViewModel del)
         {
@@ -77,7 +80,7 @@ namespace TMS_PFA.Services
             IList<Delivery> deliveries = new List<Delivery>();
             foreach (Delivery del in allDeliveries)
             {
-                if (del.PurchaseOrder.ClienId.Equals(CId))
+                if (del.PurchaseOrder.ClientId.Equals(CId))
                 {
                     deliveries.Add(del);
                 }
@@ -181,8 +184,8 @@ namespace TMS_PFA.Services
 
             Console.WriteLine("DS2 : " + viewModel.Id);
 
-            viewModel.Drivers = driverRepo.GetSelectList();
-            viewModel.Vehicles = vehicleRepo.GetSelectList();
+            viewModel.Drivers = driverService.GetAvailableDriver(id);
+            viewModel.Vehicles = vehicleService.GetAvailableVehicle(id);
 
             return viewModel;
             

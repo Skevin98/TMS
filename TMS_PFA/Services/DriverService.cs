@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -103,6 +104,34 @@ namespace TMS_PFA.Services
         public void UpdateDriver(DriverViewModel drv)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<SelectListItem> GetAvailableDriver(Guid? id)
+        {
+
+            IList<Driver> temp = repository.GetIncludes(del => del.Deliveries);
+            
+            IList<Driver> AvDrivers = new List<Driver>();
+            foreach (Driver drv in temp)
+            {
+                Console.WriteLine(drv.Deliveries.Count);
+                if (drv.Deliveries.Exists(x => x.Id != id && x.Status.ToString().Equals("InProgress")))
+                {
+                    continue;
+                    
+                }
+
+                AvDrivers.Add(drv);
+            }
+            List<SelectListItem> drivers = AvDrivers.OrderBy(d => d.LastName)
+                        .Select(d =>
+                        new SelectListItem
+                        {
+                            Value = d.Id.ToString(),
+                            Text = d.LastName + ' ' + d.FirstName
+                        }).ToList();
+
+            return new SelectList(drivers, "Value", "Text");
         }
     }
 }

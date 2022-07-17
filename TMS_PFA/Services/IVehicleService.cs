@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace TMS_PFA.Services
         IList<VehicleViewModel> GetAllVehicle();
         VehicleViewModel GetVehicleById(Guid id);
         EditDriverViewModel GetEditVehicle(Guid? id);
+
+        IEnumerable<SelectListItem> GetAvailableVehicle(Guid? id);
 
         void AddVehicle(VehicleViewModel vhc);
         void UpdateVehicle(VehicleViewModel vhc);

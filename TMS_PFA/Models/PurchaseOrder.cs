@@ -15,6 +15,7 @@ namespace TMS_PFA.Models
         public double Height { get; set; }
         public double Width { get; set; }
         public double Quantity { get; set; }
+        public String Starting { get; set; }
 
         public String Destination { get; set; }
         public string Details { get; set; }
@@ -23,7 +24,7 @@ namespace TMS_PFA.Models
         public List<Delivery> Deliveries { get; set; }
 
         [ForeignKey("Client")]
-        public Guid ClienId { get; set; }
+        public Guid ClientId { get; set; }
         public virtual Client Client { get; set; }
     }
 }

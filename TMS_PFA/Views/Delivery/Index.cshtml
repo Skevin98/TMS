@@ -3,17 +3,21 @@
 @inject SignInManager<Account> SignInManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Livraisons";
 }
 
 <link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
-<h1>Index</h1>
+<h1>Livraisons</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" id="deliveryDatatable">
+@if (User.IsInRole("Manager"))
+{
+    <p>
+        <a asp-action="Create">Créer une livraison</a>
+    </p>
+}
+
+<table class="table table-striped table-bordered dt-responsive" cellspacing="0" id="deliveryDatatable">
     <thead>
         <tr>
             <th>
@@ -43,9 +47,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.DeliveryFormId)
             </th>
-            <th>
-                Actions
-            </th>
+            @if (User.IsInRole("Driver") || User.IsInRole("Manager"))
+            {
+                <th>
+                    Actions
+                </th>
+            }
+            
         </tr>
     </thead>
     <tbody>
@@ -79,25 +87,46 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DeliveryFormId)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    if (User.IsInRole("Manager") || User.IsInRole("Driver"))
+
+
+            @if (User.IsInRole("Driver") || User.IsInRole("Manager"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a>
+                    @if (item.DeliveryFormId.Equals(Guid.Empty))
                     {
-                        <a asp-controller="DeliveryForm" asp-action="Create" asp-route-id="@item.Id">| Delivery Form creation</a>
-                        <a asp-controller="DeliveryForm" asp-action="Details" asp-route-id="@item.DeliveryFormId">| Delivery Form details</a>
+                    <a asp-controller="DeliveryForm" asp-action="Create" asp-route-id="@item.Id">| Créer le bon de livraison</a>
                     }
+                    else
+                    {
+                    <a asp-controller="DeliveryForm" asp-action="Details" asp-route-id="@item.DeliveryFormId">| Détails du bon de livraison</a>
+                    }
+                </td>
+            }
+                
+
+                @*<a asp-action="Details" asp-route-id="@item.Id">Détails</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>*@
+                @*@if (SignInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Manager") || User.IsInRole("Driver"))
+                {
+
+
+
                 }
+            }*@
 
 
-            </td>
-        </tr>
+
+         </tr>
         }
     </tbody>
 </table>
+
+<div>
+    <a asp-controller="Account" asp-action="Index">Retour</a>
+</div>
 
 @section Scripts
 {

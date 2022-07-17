@@ -81,8 +81,8 @@ namespace TMS_PFA.Controllers
         }
 
         // GET: DeliveryController/Create
-        [Authorize(Roles = "Manager")]
-        [HttpGet("{PurchaseId?}")]
+        [Authorize(Roles = "Manager, Driver")]
+        [HttpGet("[controller]/[action]/{PurchaseId?}",Name = "Create")]
         public ActionResult Create([FromRoute]Guid? PurchaseId)
         {
             if (PurchaseId == null)
@@ -102,8 +102,9 @@ namespace TMS_PFA.Controllers
         }
 
         // POST: DeliveryController/Create
-        [Authorize(Roles = "Manager")]
-        [HttpPost("{PurchaseId?}")]
+        [Authorize(Roles = "Manager,Driver")]
+        //[HttpPost("{PurchaseId?}")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] EditDeliveryViewModel del)
         {
@@ -123,6 +124,11 @@ namespace TMS_PFA.Controllers
                     else
                     {
                         Console.WriteLine("+++");
+
+                        Console.WriteLine(del.Id);
+
+                        Console.WriteLine(del.SelectedDriver);
+                        Console.WriteLine(del.SelectedVehicle);
                         deliveryService.UpdateDelivery(del);
                     }
                     
@@ -143,6 +149,7 @@ namespace TMS_PFA.Controllers
         }
 
         // GET: DeliveryController/Edit/5
+        [Authorize(Roles = "Manager,Driver")]
         public ActionResult Edit(Guid id)
         {
             return View("Create", deliveryService.GetEditDelivery(id) );

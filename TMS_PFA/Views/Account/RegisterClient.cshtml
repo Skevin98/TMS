@@ -1,12 +1,12 @@
 ﻿@model TMS_PFA.ViewModels.ClientViewModel
 
 @{
-    ViewData["Title"] = "RegisterClient";
+    ViewData["Title"] = "S'inscrire";
 }
 
-<h1>RegisterClient</h1>
+<h1>Créer un compte</h1>
 
-<h4>ClientViewModel</h4>
+<h4>Veuillez fournir les informations ci-dessous :</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +14,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <select asp-for="Type" class="form-control">
+                    <option value="individual" selected>Particulier</option>
+                    <option value="company">Societé</option>
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" type="email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group" hidden>
@@ -49,12 +52,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" type="password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Confirmation" class="control-label"></label>
-                <input asp-for="Confirmation" class="form-control" />
+                <input asp-for="Confirmation" type="password" class="form-control" />
                 <span asp-validation-for="Confirmation" class="text-danger"></span>
             </div>
             <div class="form-group" hidden>
@@ -63,14 +66,14 @@
                 <span asp-validation-for="AccountId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Valider" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Retour</a>
+    <a asp-controller="Client" asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {

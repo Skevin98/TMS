@@ -1,19 +1,19 @@
 ﻿@model TMS_PFA.ViewModels.EditDeliveryViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Créer une livraison";
 }
 
-<h1>Create</h1>
+<h1>Créer une livraison</h1>
 
-<h4>EditDeliveryViewModel</h4>
+<h4>Veuillez entrer les informations ci-dessous:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
@@ -24,7 +24,7 @@
                     <option value="InProgress">In Progress</option>
                     <option value="Canceled">Canceled</option>
                     <option value="Delivered">Delivered</option>
-                    <option value="Loading">Loading</option>
+                    <option value="Processing">Processing</option>
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="EstimatedReceiptDate" class="control-label"></label>
-                <input asp-for="EstimatedReceiptDate" class="form-control" />
+                <input asp-for="EstimatedReceiptDate" type="date" min="2000-01-01" class="form-control" />
                 <span asp-validation-for="EstimatedReceiptDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,36 +43,60 @@
                 <input asp-for="Progression" class="form-control" />
                 <span asp-validation-for="Progression" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PurchaseId" class="control-label"></label>
-                <input asp-for="PurchaseId" class="form-control" />
-                <span asp-validation-for="PurchaseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SelectedVehicle" class="control-label"></label>
-                <select asp-for="SelectedVehicle" asp-items="Model.Vehicles" class="form-control">
+            @if (User.IsInRole("Driver"))
+            {
+                <div class="form-group" hidden>
+                    <label asp-for="PurchaseId" class="control-label"></label>
+                    <input asp-for="PurchaseId" class="form-control" />
+                    <span asp-validation-for="PurchaseId" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="SelectedVehicle" class="control-label"></label>
+                    <select asp-for="SelectedVehicle" asp-items="Model.Vehicles" class="form-control">
+                    </select>
+                    <span asp-validation-for="SelectedVehicle" class="text-danger"></span>
 
-                </select>
-                <span asp-validation-for="SelectedVehicle" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="SelectedDriver" class="control-label"></label>
+                    <select asp-for="SelectedDriver" asp-items="Model.Drivers" class="form-control">
+                    </select>
+                    <span asp-validation-for="SelectedDriver" class="text-danger"></span>
+                </div>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="SelectedDriver" class="control-label"></label>
-                <select asp-for="SelectedDriver" asp-items="Model.Drivers" class="form-control" >
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="PurchaseId" class="control-label"></label>
+                    <input asp-for="PurchaseId" class="form-control" />
+                    <span asp-validation-for="PurchaseId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SelectedVehicle" class="control-label"></label>
+                    <select asp-for="SelectedVehicle" asp-items="Model.Vehicles" class="form-control">
+                    </select>
+                    <span asp-validation-for="SelectedVehicle" class="text-danger"></span>
 
-                </select>
-                <span asp-validation-for="SelectedDriver" class="text-danger"></span>
-            </div>
-            
+                </div>
+                <div class="form-group">
+                    <label asp-for="SelectedDriver" class="control-label"></label>
+                    <select asp-for="SelectedDriver" asp-items="Model.Drivers" class="form-control">
+                    </select>
+                    <span asp-validation-for="SelectedDriver" class="text-danger"></span>
+                </div>
+            }
+
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Valider" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {

@@ -36,15 +36,7 @@ namespace TMS_PFA.Data
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<TMS_PFA.ViewModels.ClientViewModel> ClientViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.LoginViewModel> LoginViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.DriverViewModel> DriverViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.VehicleViewModel> VehicleViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.ReceiptViewModel> ReceiptViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.PurchaseOrderViewModel> PurchaseOrderViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.DeliveryViewModel> DeliveryViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.EditDeliveryViewModel> EditDeliveryViewModel { get; set; }
-        public DbSet<TMS_PFA.ViewModels.DeliveryFormViewModel> DeliveryFormViewModel { get; set; }
+
 
     }
 }

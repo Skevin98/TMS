@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<TMS_PFA.ViewModels.VehicleViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Véhicules";
 }
 
-<h1>Index</h1>
+<h1>Véhicules</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ajouter un véhicule</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberPlate)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
@@ -49,6 +52,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.NumberPlate)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
@@ -79,11 +85,14 @@
                 @Html.DisplayFor(modelItem => item.TechnicalVisit)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Détails</a> @*|
+                <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>*@
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a asp-controller="Account" asp-action="Index">Retour</a>
+</div>

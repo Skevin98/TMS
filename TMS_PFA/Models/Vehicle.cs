@@ -8,6 +8,7 @@ namespace TMS_PFA.Models
 {
     public class Vehicle : BaseEntity
     {
+        public string NumberPlate { get; set; }
         public string Type { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }

@@ -1,12 +1,12 @@
 ﻿@model TMS_PFA.ViewModels.PurchaseOrderViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Passer une commande";
 }
 
-<h1>Create</h1>
+<h1>Passer une commande</h1>
 
-<h4>PurchaseOrderViewModel</h4>
+<h4>Veuillez entrer les informations ci-dessous:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,7 +17,7 @@
                 <input asp-for="Type" class="form-control" />
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
@@ -43,6 +43,11 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Starting" class="control-label"></label>
+                <input asp-for="Starting" class="form-control" />
+                <span asp-validation-for="Starting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Destination" class="control-label"></label>
                 <input asp-for="Destination" class="form-control" />
                 <span asp-validation-for="Destination" class="text-danger"></span>
@@ -52,20 +57,32 @@
                 <input asp-for="Details" class="form-control" />
                 <span asp-validation-for="Details" class="text-danger"></span>
             </div>
-            <div class="form-group" >
-                <label asp-for="ClienId" class="control-label"></label>
-                <input asp-for="ClienId" class="form-control" />
-                <span asp-validation-for="ClienId" class="text-danger"></span>
-            </div>
+            @if (User.IsInRole("Client"))
+            {
+                <div class="form-group" hidden>
+                    <label asp-for="ClientId" class="control-label"></label>
+                    <input asp-for="ClientId" class="form-control"  />
+                    <span asp-validation-for="ClientId" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="ClientId" class="control-label"></label>
+                    <input asp-for="ClientId" class="form-control" />
+                    <span asp-validation-for="ClientId" class="text-danger"></span>
+                </div>
+            }
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Valider" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {

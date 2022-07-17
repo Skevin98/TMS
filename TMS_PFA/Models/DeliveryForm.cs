@@ -11,10 +11,12 @@ namespace TMS_PFA.Models
     {
         public DateTime ReceiptDate { get; set; }
         public string DestinationAddress { get; set; }
-        public double Price { get; set; }
+        //public double Price { get; set; }
         
         [ForeignKey("Delivery")]
         public Guid DeliveryId { get; set; }
         public virtual Delivery Delivery { get; set; }
+
+        public string ImageName { get; set; }
     }
 }

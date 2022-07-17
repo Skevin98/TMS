@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TMS_PFA.Models
 {
 
-    public enum Status { InProgress, Canceled, Delivered}
+    public enum Status { Processing ,InProgress, Canceled, Delivered}
 
     public class Delivery : BaseEntity 
     {

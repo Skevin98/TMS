@@ -48,22 +48,22 @@ namespace TMS_PFA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "12dbb6a3-8446-493c-8f7a-8ca1be32a7d7",
-                            ConcurrencyStamp = "d3fd466e-3719-45df-9213-16725d6c206a",
+                            Id = "26f16166-6e70-473e-ae17-51631a623a6c",
+                            ConcurrencyStamp = "fbb207e8-9da9-4137-ae2c-0207defedf25",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "eb72bbff-c1d9-405d-91d0-5d2289f77750",
-                            ConcurrencyStamp = "714d5891-9cef-4376-838d-25a7a63cd8d9",
+                            Id = "2fb58b4b-4db1-469e-a437-46ef78c4910a",
+                            ConcurrencyStamp = "75c38886-f757-4a50-a15a-4214ca562d05",
                             Name = "Driver",
                             NormalizedName = "DRIVER"
                         },
                         new
                         {
-                            Id = "7cd87a77-99d1-4f0d-aa56-e2471acb0b68",
-                            ConcurrencyStamp = "7d7ff752-7693-41ca-a830-0fe94e530adc",
+                            Id = "5b9a2de1-b071-4725-b566-d48cee54aee1",
+                            ConcurrencyStamp = "159f5ec6-13cd-4fa8-89db-82cc4458ee72",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         });
@@ -120,12 +120,10 @@ namespace TMS_PFA.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -162,12 +160,10 @@ namespace TMS_PFA.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -324,8 +320,8 @@ namespace TMS_PFA.Migrations
                     b.Property<string>("DestinationAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ReceiptDate")
                         .HasColumnType("datetime2");
@@ -389,7 +385,7 @@ namespace TMS_PFA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClienId")
+                    b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -407,6 +403,9 @@ namespace TMS_PFA.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
+                    b.Property<string>("Starting")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
@@ -418,7 +417,7 @@ namespace TMS_PFA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("PurchaseOrders");
                 });
@@ -437,6 +436,9 @@ namespace TMS_PFA.Migrations
 
                     b.Property<double>("Height")
                         .HasColumnType("float");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PurchaseId")
                         .HasColumnType("uniqueidentifier");
@@ -477,6 +479,9 @@ namespace TMS_PFA.Migrations
 
                     b.Property<long>("Mileage")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("NumberPlate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
@@ -612,7 +617,7 @@ namespace TMS_PFA.Migrations
                 {
                     b.HasOne("TMS_PFA.Models.Client", "Client")
                         .WithMany("PurchaseOrders")
-                        .HasForeignKey("ClienId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

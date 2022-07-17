@@ -1,12 +1,12 @@
 ﻿@model TMS_PFA.ViewModels.VehicleViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Ajoute un véhicule";
 }
 
-<h1>Create</h1>
+<h1>Ajouter un véhicule</h1>
 
-<h4>VehicleViewModel</h4>
+<h4>Veuillez entrer les informations ci-dessous:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,6 +16,11 @@
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberPlate" class="control-label"></label>
+                <input asp-for="NumberPlate" class="form-control" />
+                <span asp-validation-for="NumberPlate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
@@ -59,7 +64,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Insurance" class="control-label"></label>
-                <input asp-for="Insurance" class="form-control" type="date" value="1900-01-01" min="1900-01-01"/>
+                <input asp-for="Insurance" class="form-control" type="date" value="1900-01-01" min="1900-01-01" />
                 <span asp-validation-for="Insurance" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -75,7 +80,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 
 @section Scripts {

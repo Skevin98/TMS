@@ -23,14 +23,15 @@ namespace TMS_PFA.Services
             {
                 Id = ord.Id,
                 Type = ord.Type,
-                Date = ord.Date,
+                Date = DateTime.UtcNow,
                 Weight = ord.Weight,
                 Height = ord.Height,
                 Width = ord.Width,
                 Quantity = ord.Quantity,
+                Starting = ord.Starting,
                 Destination = ord.Destination,
                 Details = ord.Details,
-                ClienId = ord.ClienId
+                ClientId = ord.ClientId
             };
             repository.Add(order);
         }
@@ -52,7 +53,7 @@ namespace TMS_PFA.Services
             IList<PurchaseOrder> orders = new List<PurchaseOrder>();
             foreach (PurchaseOrder ord in allOrders)
             {
-                if (ord.ClienId.Equals(CId))
+                if (ord.ClientId.Equals(CId))
                 {
                     orders.Add(ord);
                 }
@@ -74,9 +75,10 @@ namespace TMS_PFA.Services
                     Height = ord.Height,
                     Width = ord.Width,
                     Quantity = ord.Quantity,
+                    Starting = ord.Starting,
                     Destination = ord.Destination,
                     Details = ord.Details,
-                    ClienId = ord.ClienId
+                    ClientId = ord.ClientId
                 });
             }
             return purchaseOrderViewModels;
@@ -98,9 +100,10 @@ namespace TMS_PFA.Services
                 Height = order.Height,
                 Width = order.Width,
                 Quantity = order.Quantity,
+                Starting = order.Starting,
                 Destination = order.Destination,
                 Details = order.Details,
-                ClienId = order.ClienId
+                ClientId = order.ClientId
             };
             return ord;
         }
@@ -110,6 +113,20 @@ namespace TMS_PFA.Services
             throw new NotImplementedException();
         }
 
-       
+        public IList<PurchaseOrderViewModel> GetOrderByDriver(Guid DId)
+        {
+            IList<PurchaseOrder> allOrders = repository.GetIncludes(d => d.Deliveries);
+            IList<PurchaseOrder> orders = new List<PurchaseOrder>();
+            foreach (PurchaseOrder ord in allOrders)
+            {
+                if (ord.Deliveries.Exists(d=>d.DriverId.Equals(DId)))
+                {
+                    orders.Add(ord);
+                }
+            }
+            return BindOrderList(orders);
+        }
+
+
     }
 }

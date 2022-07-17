@@ -23,7 +23,8 @@ namespace TMS_PFA.Services
                 Id = del.Id,
                 ReceiptDate = del.ReceiptDate,
                 DestinationAddress = del.DestinationAddress,
-                Price = del.Price,
+                //Price = del.Price,
+                ImageName = del.ImageName,
                 DeliveryId = del.DeliveryId
             };
             repository.Add(deliveryForm);
@@ -50,7 +51,8 @@ namespace TMS_PFA.Services
                     Id = delivery.Id,
                     ReceiptDate = delivery.ReceiptDate,
                     DestinationAddress = delivery.DestinationAddress,
-                    Price = delivery.Price,
+                    //Price = delivery.Price,
+                    ImageName = delivery.ImageName,
                     DeliveryId = delivery.DeliveryId
                 });
             }
@@ -63,7 +65,7 @@ namespace TMS_PFA.Services
             IList<DeliveryForm> deliveries = new List<DeliveryForm>();
             foreach (DeliveryForm del in allDeliveries)
             {
-                if (del.Delivery.PurchaseOrder.ClienId.Equals(CId))
+                if (del.Delivery.PurchaseOrder.ClientId.Equals(CId))
                 {
                     deliveries.Add(del);
                 }
@@ -101,7 +103,8 @@ namespace TMS_PFA.Services
                     Id = delivery.Id,
                     ReceiptDate = delivery.ReceiptDate,
                     DestinationAddress = delivery.DestinationAddress,
-                    Price = delivery.Price,
+                    //Price = delivery.Price,
+                    ImageName = delivery.ImageName,
                     DeliveryId = delivery.DeliveryId
                 };
 

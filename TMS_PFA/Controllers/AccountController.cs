@@ -196,7 +196,8 @@ namespace TMS_PFA.Controllers
 
         public ActionResult Login()
         {
-            //Creation d'un admin
+            
+            ////Creation d'un admin
             //var manager = new Account
             //{
             //    UserName = "Admin01",
@@ -217,14 +218,14 @@ namespace TMS_PFA.Controllers
             //catch (Exception e)
             //{
 
-            //    Console.WriteLine("Admin creation : "+e);
+            //    Console.WriteLine("Admin creation : " + e);
             //}
 
             if (signInManager.IsSignedIn(User))
             {
                 return RedirectToAction("Index", "Account");
             }
-                return View();
+            return View();
         }
 
         [HttpPost]

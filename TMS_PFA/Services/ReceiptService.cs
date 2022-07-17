@@ -29,6 +29,7 @@ namespace TMS_PFA.Services
                 Width = rec.Width,
                 Quantity = rec.Quantity,
                 Details = rec.Details,
+                ImageName = rec.ImageName,
                 PurchaseId = rec.PurchaseId
             };
             repository.Add(receipt);
@@ -60,6 +61,7 @@ namespace TMS_PFA.Services
                     Width = rec.Width,
                     Quantity = rec.Quantity,
                     Details = rec.Details,
+                    ImageName = rec.ImageName,
                     PurchaseId = rec.PurchaseId
                 });
             }
@@ -83,6 +85,7 @@ namespace TMS_PFA.Services
                 Width = receipt.Width,
                 Quantity = receipt.Quantity,
                 Details = receipt.Details,
+                ImageName = receipt.ImageName,
                 PurchaseId = receipt.PurchaseId
 
             };
@@ -94,5 +97,19 @@ namespace TMS_PFA.Services
         {
             throw new NotImplementedException();
         }
+
+        //public IList<ReceiptViewModel> GetReceiptByDriver(Guid DId)
+        //{
+        //    IList<Receipt> receipts = repository.GetIncludes(r => r.PurchaseOrder);
+        //    IList<Receipt> receiptsDriver = new List<Receipt>();
+        //    foreach (Receipt item in receipts)
+        //    {
+        //        if (true)
+        //        {
+
+        //        }
+        //    }
+        //    return BindReceiptList(receipts);
+        //}
     }
 }

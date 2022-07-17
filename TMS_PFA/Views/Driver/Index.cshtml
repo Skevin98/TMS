@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<TMS_PFA.ViewModels.DriverViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Chauffeurs";
 }
 
-<h1>Index</h1>
+<h1>Chauffeurs</h1>
 
 <p>
-    <a asp-controller="Account" asp-action="RegisterDriver">Create New</a>
+    <a asp-controller="Account" asp-action="RegisterDriver">Ajouter un chauffeur</a>
 </p>
 <table class="table">
     <thead>
@@ -15,12 +15,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nid)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Birth)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sexe)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.HiringDate)
             </th>
@@ -66,12 +66,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nid)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Birth)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sexe)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.HiringDate)
             </td>
@@ -109,11 +109,14 @@
                 @Html.DisplayFor(modelItem => item.AccountId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Détails</a> @*|
+                <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>*@
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a asp-controller="Account" asp-action="Index">Retour</a>
+</div>

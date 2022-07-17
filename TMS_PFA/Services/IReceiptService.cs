@@ -11,6 +11,7 @@ namespace TMS_PFA.Services
         IList<ReceiptViewModel> GetAllReceipt();
         ReceiptViewModel GetReceiptById(Guid id);
         //EditReceiptViewModel GetEditReceipt(Guid? id);
+        //IList<ReceiptViewModel> GetReceiptByDriver(Guid DId);
 
         void AddReceipt(ReceiptViewModel rec);
         void UpdateReceipt(ReceiptViewModel rec);

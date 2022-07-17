@@ -21,6 +21,7 @@ namespace TMS_PFA.Services
         {
             Vehicle vehicle = new Vehicle
             {
+                NumberPlate = vhc.NumberPlate,
                 Type = vhc.Type,
                 Weight = vhc.Weight,
                 Height = vhc.Height,
@@ -64,6 +65,7 @@ namespace TMS_PFA.Services
             {
                 vehicleViewModels.Add(new VehicleViewModel
                 {
+                    NumberPlate = vhc.NumberPlate,
                     Type = vhc.Type,
                     Weight = vhc.Weight,
                     Height = vhc.Height,
@@ -95,6 +97,33 @@ namespace TMS_PFA.Services
             throw new NotImplementedException();
         }
 
+        public IEnumerable<SelectListItem> GetAvailableVehicle(Guid? id)
+        {
 
+            IList<Vehicle> temp = repository.GetIncludes(del => del.Deliveries);
+            
+            IList<Vehicle> AvVehicles = new List<Vehicle>();
+            foreach (Vehicle vhc in temp)
+            {
+
+                if (vhc.Deliveries.Exists(x => x.Id != id && x.Status.ToString().Equals("InProgress")))
+                {
+
+                    continue;
+                    
+                }
+
+                AvVehicles.Add(vhc);
+            }
+            List<SelectListItem> vehicles = AvVehicles.OrderBy(v => v.NumberPlate)
+                        .Select(v =>
+                        new SelectListItem
+                        {
+                            Value = v.Id.ToString(),
+                            Text = v.NumberPlate.ToString() +" "+ v.Type
+                        }).ToList();
+
+            return new SelectList(vehicles, "Value", "Text");
+        }
     }
 }

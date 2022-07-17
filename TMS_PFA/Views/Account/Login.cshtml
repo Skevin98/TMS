@@ -1,12 +1,12 @@
 ﻿@model TMS_PFA.ViewModels.LoginViewModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Connexion";
 }
 
-<h1>Login</h1>
+<h1>Connexion</h1>
 
-<h4>LoginViewModel</h4>
+@*<h4>Bienvenue</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,23 +24,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" type="password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
+                <input type="submit" value="Se connecter" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="RegisterClient">Create Account</a>
+    <a asp-action="RegisterClient">Pas de compte ? Créer un compte</a>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

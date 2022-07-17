@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TMS_PFA.Models;
@@ -17,13 +19,15 @@ namespace TMS_PFA.Controllers
     {
         private readonly IDeliveryFormService formService;
         private readonly UserManager<Account> userManager;
+        private readonly IWebHostEnvironment hostEnvironment;
         private readonly IUserRepository<Client> clientRepo;
         private readonly IUserRepository<Driver> driverRepo;
 
-        public DeliveryFormController(IDeliveryFormService formService, IUserRepository<Client> clientRepo, IUserRepository<Driver> driverRepo, UserManager<Account> userManager)
+        public DeliveryFormController(IDeliveryFormService formService, IUserRepository<Client> clientRepo, IUserRepository<Driver> driverRepo, UserManager<Account> userManager, IWebHostEnvironment hostEnvironment)
         {
             this.formService = formService;
             this.userManager = userManager;
+            this.hostEnvironment = hostEnvironment;
             this.clientRepo = clientRepo;
             this.driverRepo = driverRepo;
         }
@@ -95,12 +99,21 @@ namespace TMS_PFA.Controllers
         [Authorize(Roles = "Manager,Driver")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] DeliveryFormViewModel viewModel)
+        public async Task<ActionResult> Create([FromForm] DeliveryFormViewModel viewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    string wwwRootPath = hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(viewModel.ImageFile.FileName);
+                    string extension = Path.GetExtension(viewModel.ImageFile.FileName);
+                    viewModel.ImageName = fileName = fileName + DateTime.Now.ToString("yyyymmdd") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Images/DeliveryForms/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await viewModel.ImageFile.CopyToAsync(fileStream);
+                    }
                     formService.AddDeliveryForm(viewModel);
                 }
                 return RedirectToAction(nameof(Index));

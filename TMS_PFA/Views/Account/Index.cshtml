@@ -28,7 +28,7 @@
             <a asp-controller="Delivery" asp-action="Index">Gestion des livraisons</a>
         </div>
         <div>
-            <a asp-controller="DeliveryForm" asp-action="Index">Gestions des bons de livraison</a>
+            <a asp-controller="DeliveryForm" asp-action="Index">Gestion des bons de livraison</a>
         </div>
         <div>
             <a asp-controller="Receipt" asp-action="Index">Gestion des bons de réception</a>
@@ -36,6 +36,7 @@
     }
     else if (User.IsInRole("Client"))
     {
+        <h1>Espace Client</h1>
         <div>
             <a asp-controller="PurchaseOrder" asp-action="Index">Gestion des commandes</a>
         </div>
@@ -45,12 +46,19 @@
     }
     else if (User.IsInRole("Driver"))
     {
+        <h1>Espace Chauffeur</h1>
+        <div>
+            <a asp-controller="PurchaseOrder" asp-action="Index">Gestion des commandes</a>
+        </div>
+        <div>
+            <a asp-controller="Receipt" asp-action="Index">Gestion des bons de réception</a>
+        </div>
         <div>
             <a asp-controller="Delivery" asp-action="Index">Gestion des livraisons</a>
 
         </div>
         <div>
-            <a asp-controller="DeliveryForm" asp-action="Index">Gestions des bons de livraison</a>
+            <a asp-controller="DeliveryForm" asp-action="Index">Gestion des bons de livraison</a>
         </div>
     }
 }
